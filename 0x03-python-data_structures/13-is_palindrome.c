@@ -1,55 +1,40 @@
 #include "lists.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
 /**
- * is_palindrome - checks if linked list @head is a palindrome
- * @head: the linked list to be checked if it's a palindrome
- * Return: 1 if it's a palindrome, 0 otherwise
+ * is_palindrome - check if linked list is a palindrome
+ * @head: pointer to pointer to head of the list
+ * Return: 0 if it is not a palindrome, 1 if it is a palindrome
  */
 int is_palindrome(listint_t **head)
 {
-	int i, list_len = (int) listint_len(*head);
-	int *h = malloc(sizeof(int) * list_len); /* Contains all n's in *head*/
-	listint_t *head_copy = *head;
+	listint_t *temp = *head;
+	int size = sizeof(int);
+	int i = 1;
+	int left = 0;
+	int right = i - 1;
+	int *arr = malloc(100000 * sizeof(int));
 
-	if (!*head || ((*head)->n == 0 && (*head)->next == NULL))
-	{
-		free(h);
+	arr[0] = (*head)->n;
+
+	if (*head == NULL)
 		return (1);
-	}
 
-	for (i = 0; i < list_len; i++)
+	temp = temp->next;
+
+	while (temp != NULL)
 	{
-		h[i] = (*head)->n;
-		*head = (*head)->next;
+		size += sizeof(int);
+		arr = realloc(arr, size);
+		arr[i] = temp->n;
+		i++;
+		temp = temp->next;
 	}
-	*head = head_copy; /* Return the head of the list back to the first item */
-
-	for (i = 0; i < list_len; i++)
+	for (; left < right; left++, right--)
 	{
-		if (h[i] == h[list_len - 1 - i])
-			continue;
-		free(h);
-		return (0);
+		if (arr[left] != arr[right])
+			return (0);
 	}
-
-	free(h);
 	return (1);
-}
-
-/**
- * listint_len - length of a list
- * @h:pointer to list element
- * Return: size of list
- */
-size_t listint_len(const listint_t *h)
-{
-	size_t len = 0;
-
-	while (h)
-	{
-		len++;
-		h = h->next;
-	}
-
-	return (len);
 }
