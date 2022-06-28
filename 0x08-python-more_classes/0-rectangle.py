@@ -1,13 +1,9 @@
 #!/usr/bin/python3
-
-"""
-Module containing empty class Rectangle
+"""Module to create a Rectangle Object
 """
 
 
 class Rectangle:
-    """
-    Empty class rectangle.
-    To be built upon in the subsequent modules.
+    """This is Rectangle class
     """
     pass
